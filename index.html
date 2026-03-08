@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Items Lab — Discovery Item Prototypes</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Xbox-style Left Nav -->
+  <nav class="side-nav">
+    <div class="nav-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect width="11" height="11" fill="#fff"/>
+        <rect x="13" width="11" height="11" fill="#fff"/>
+        <rect y="13" width="11" height="11" fill="#fff"/>
+        <rect x="13" y="13" width="11" height="11" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="nav-items">
+      <div class="nav-item active">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3h6v6H3V3zm0 8h6v6H3v-6zm8-8h6v6h-6V3zm0 8h6v6h-6v-6z"/></svg>
+        <span>Home</span>
+      </div>
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-3.54 8.54l-4.2 4.2a1 1 0 001.41 1.41l4.2-4.2A5 5 0 1010 2zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+        <span>Search</span>
+      </div>
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14v2H3V4zm0 5h14v2H3V9zm0 5h14v2H3v-2z"/></svg>
+        <span>My Library</span>
+      </div>
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5z"/></svg>
+        <span>Game Pass</span>
+      </div>
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M10 6v4l3 2"/></svg>
+        <span>Store</span>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM4 16c0-2.67 5.33-4 6-4s6 1.33 6 4v1H4v-1z"/></svg>
+        <span>Profile</span>
+      </div>
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 4v5h-2V6h2zm0 7v2h-2v-2h2z"/></svg>
+        <span>Settings</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Control Panel -->
+    <div class="control-panel">
+      <div class="control-panel-header">
+        <h2>Prototype Controls</h2>
+        <button class="control-toggle" id="controlToggle">▼</button>
+      </div>
+      <div class="control-panel-body" id="controlBody">
+        <div class="control-group">
+          <label class="control-label">Form Factor</label>
+          <div class="control-options" data-control="formFactor">
+            <button class="control-btn active" data-value="box">Box (1:1)</button>
+            <button class="control-btn" data-value="hero">Hero (16:9)</button>
+            <button class="control-btn" data-value="mixed">Mixed</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Content — Pricing</label>
+          <div class="control-options" data-control="showPrice">
+            <button class="control-btn active" data-value="true">Show</button>
+            <button class="control-btn" data-value="false">Hide</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Content — Secondary Info</label>
+          <div class="control-options" data-control="secondaryInfo">
+            <button class="control-btn active" data-value="recommendation">Recommendation Reasoning</button>
+            <button class="control-btn" data-value="genome">Genome Tags</button>
+            <button class="control-btn" data-value="none">None</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Title &amp; Publisher</label>
+          <div class="control-options" data-control="showTitlePublisher">
+            <button class="control-btn active" data-value="true">Show</button>
+            <button class="control-btn" data-value="false">Hide</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Preview Mode</label>
+          <div class="control-options" data-control="previewMode">
+            <button class="control-btn active" data-value="slideshow">Slideshow</button>
+            <button class="control-btn" data-value="video">Video</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Backplate</label>
+          <div class="control-options" data-control="showBackplate">
+            <button class="control-btn active" data-value="true">Show</button>
+            <button class="control-btn" data-value="false">Hide</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Items Per Row</label>
+          <div class="control-options" data-control="itemsPerRow">
+            <button class="control-btn" data-value="3">3</button>
+            <button class="control-btn" data-value="4">4</button>
+            <button class="control-btn active" data-value="5">5</button>
+            <button class="control-btn" data-value="6">6</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channels Container -->
+    <div class="channels-container" id="channelsContainer">
+      <!-- Channels rendered by JS -->
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
