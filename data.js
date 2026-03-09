@@ -446,24 +446,6 @@ const CHANNELS = [
     gameIds: [2, 4, 1, 13, 15, 5]
   },
   {
-    id: 3,
-    name: "New Releases",
-    subtitle: "Click Expand Inline — Click to expand the card inline with details",
-    interactionType: "click-expand",
-    formFactorOverride: null,
-    contentConfig: { showPrice: true, secondaryInfo: "none" },
-    gameIds: [3, 8, 9, 1, 5, 14]
-  },
-  {
-    id: 4,
-    name: "Fans of Halo like",
-    subtitle: "Focus Glow — Keyboard/controller focus adds glow ring and expands",
-    interactionType: "focus-glow",
-    formFactorOverride: null,
-    contentConfig: { showPrice: false, secondaryInfo: "recommendation" },
-    gameIds: [3, 1, 15, 7, 4, 11]
-  },
-  {
     id: 5,
     name: "Explore by Genre",
     subtitle: "Hover Flip — Card flips to reveal back side with screenshot/details",
@@ -471,24 +453,6 @@ const CHANNELS = [
     formFactorOverride: null,
     contentConfig: { showPrice: true, secondaryInfo: "genome" },
     gameIds: [5, 14, 2, 4, 11, 8]
-  },
-  {
-    id: 6,
-    name: "Trending Now",
-    subtitle: "Long Press Expand — Press and hold to trigger expansion with preview",
-    interactionType: "long-press",
-    formFactorOverride: null,
-    contentConfig: { showPrice: true, secondaryInfo: "recommendation" },
-    gameIds: [4, 3, 10, 13, 5, 15]
-  },
-  {
-    id: 7,
-    name: "Recently Updated",
-    subtitle: "Hover Peek — Partial expansion reveals a screenshot peek strip",
-    interactionType: "hover-peek",
-    formFactorOverride: null,
-    contentConfig: { showPrice: false, secondaryInfo: "genome" },
-    gameIds: [2, 10, 11, 1, 9, 4]
   },
   {
     id: 8,

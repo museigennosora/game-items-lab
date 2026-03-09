@@ -116,10 +116,16 @@ function getFormFactor(channel, idx) {
   return state.formFactor;
 }
 
-function getArtSrc(game) {
-  if (game.heroTitledArt) return game.heroTitledArt;
-  if (game.heroArt) return game.heroArt;
-  if (game.boxArt) return game.boxArt;
+function getArtSrc(game, formFactor) {
+  if (formFactor === 'box') {
+    if (game.boxArt) return game.boxArt;
+    if (game.heroTitledArt) return game.heroTitledArt;
+    if (game.heroArt) return game.heroArt;
+  } else {
+    if (game.heroTitledArt) return game.heroTitledArt;
+    if (game.heroArt) return game.heroArt;
+    if (game.boxArt) return game.boxArt;
+  }
   return null;
 }
 
@@ -152,10 +158,11 @@ function createGameItem(gameId, formFactor, content, interactionType) {
   if (!game) return '';
 
   const artClass = formFactor === 'hero' ? 'hero' : 'box';
-  const artSrc = getArtSrc(game);
+  const artSrc = getArtSrc(game, formFactor);
+  const artLabel = formFactor === 'box' ? '1:1' : '16:9';
   const artInner = artSrc
     ? `<img class="item-art-image" src="${artSrc}" alt="${game.title}" draggable="false">`
-    : `<div class="item-art-placeholder" style="--placeholder-color:${game.color}">${game.title}<span class="art-label">16:9</span></div>`;
+    : `<div class="item-art-placeholder" style="--placeholder-color:${game.color}">${game.title}<span class="art-label">${artLabel}</span></div>`;
 
   let priceHtml = '';
   if (content.showPrice) {
@@ -649,7 +656,7 @@ function createBundleChannel() {
 function getBundleGameArt(gameId) {
   const game = GAMES.find(g => g.id === gameId);
   if (!game) return null;
-  return getArtSrc(game);
+  return getArtSrc(game, 'hero');
 }
 
 function getBundleGamePosterArt(gameId) {

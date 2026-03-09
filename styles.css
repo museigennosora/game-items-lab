@@ -348,7 +348,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.item-art.box { aspect-ratio: 16 / 9; }
+.item-art.box { aspect-ratio: 3 / 4; }
 .item-art.hero { aspect-ratio: 16 / 9; }
 
 /* Placeholder art */
@@ -563,6 +563,12 @@ body {
 /* Genome tags */
 .item-genome-tags {
   margin-top: 6px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 18px;
+  align-items: center;
   font-size: 11px;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -572,6 +578,7 @@ body {
 }
 
 .genome-separator {
+  flex-shrink: 0;
   margin: 0 5px;
   opacity: 0.4;
 }
@@ -1288,6 +1295,12 @@ body {
   z-index: 20;
   box-shadow: 0 0 0 2px #fff,
               0 20px 60px rgba(0,0,0,0.7);
+}
+
+/* When box art long-hover activates, expand art to 16:9 */
+.interaction-long-hover .game-item.longhover-active .item-art.box {
+  aspect-ratio: 16 / 9;
+  transition: aspect-ratio 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 .longhover-overlay {
   position: absolute;
