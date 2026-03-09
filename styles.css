@@ -348,8 +348,13 @@ body {
   background-repeat: no-repeat;
 }
 
-.item-art.box { aspect-ratio: 3 / 4; }
+.item-art.box  { aspect-ratio: 1 / 1; transition: aspect-ratio 0.3s cubic-bezier(0.2, 0, 0, 1); }
 .item-art.hero { aspect-ratio: 16 / 9; }
+
+/* Box art expands to 16:9 on hover so slideshow/video fills without cropping */
+.game-item:hover .item-art.box {
+  aspect-ratio: 16 / 9;
+}
 
 /* Placeholder art */
 .item-art-placeholder {
@@ -522,9 +527,11 @@ body {
 .item-price {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-top: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  height: 20px;
 }
 
 .price-sale-badge {
@@ -558,6 +565,8 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 /* Genome tags */
@@ -577,9 +586,15 @@ body {
   flex-shrink: 0;
 }
 
+.genome-tag {
+  font-size: 11px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .genome-separator {
   flex-shrink: 0;
-  margin: 0 5px;
+  margin: 0 4px;
   opacity: 0.4;
 }
 
