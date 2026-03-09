@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Items Lab — Competitive Analysis</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COMP ANALYSIS PAGE STYLES ===== */
+    .ca-content {
+      padding: 40px 40px 80px;
+      max-width: 1400px;
+    }
+
+    .ca-page-header {
+      margin-bottom: 48px;
+    }
+
+    .ca-page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .ca-page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    /* ===== SECTION ===== */
+    .ca-section {
+      margin-bottom: 56px;
+    }
+
+    .ca-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ca-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+    }
+
+    .ca-section-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ===== PLATFORM CARDS GRID ===== */
+    .ca-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .ca-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ca-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* ===== PLATFORM CARD WRAPPER ===== */
+    .ca-card {
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ca-card-label {
+      padding: 12px 14px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .ca-platform-name {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-secondary);
+    }
+
+    .ca-pattern-tag {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .ca-mock {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ca-annotation {
+      padding: 10px 14px 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-top: 1px solid var(--border);
+    }
+
+    .ca-annotation strong {
+      color: var(--text-secondary);
+    }
+
+    /* ===== AMAZON — Frequently Bought Together ===== */
+    .amz-fbt {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #fff;
+      border-radius: 6px;
+      padding: 14px;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .amz-product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .amz-product-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .amz-product-title {
+      font-size: 10px;
+      color: #0F1111;
+      text-align: center;
+      line-height: 1.3;
+      max-width: 80px;
+    }
+
+    .amz-product-price {
+      font-size: 12px;
+      font-weight: 700;
+      color: #B12704;
+    }
+
+    .amz-plus {
+      font-size: 20px;
+      color: #aaa;
+      padding: 0 4px;
+      flex-shrink: 0;
+    }
+
+    .amz-bundle-summary {
+      background: #fff;
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .amz-bundle-total {
+      font-size: 11px;
+      color: #0F1111;
+      font-family: Arial, sans-serif;
+    }
+
+    .amz-bundle-total strong {
+      font-size: 14px;
+      color: #B12704;
+    }
+
+    .amz-atc-btn {
+      background: #FFD814;
+      border: 1px solid #FCD200;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0F1111;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ===== AMAZON — Bundle Save ===== */
+    .amz-bundle-save {
+      background: #fff;
+      border-radius: 6px;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+    }
+
+    .amz-bs-badge {
+      display: inline-block;
+      background: #CC0C39;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .amz-bs-items {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .amz-bs-item {
+      flex: 1;
+      background: #f7f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .amz-bs-item-img {
+      font-size: 22px;
+    }
+
+    .amz-bs-item-name {
+      font-size: 9px;
+      color: #0F1111;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .amz-bs-item-price {
+      font-size: 10px;
+      color: #565959;
+      text-decoration: line-through;
+    }
+
+    .amz-bs-item-sale {
+      font-size: 11px;
+      font-weight: 700;
+      color: #CC0C39;
+    }
+
+    .amz-bs-total-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid #eee;
+    }
+
+    .amz-bs-savings {
+      font-size: 10px;
+      color: #007600;
+      font-weight: 700;
+    }
+
+    .amz-bs-btn {
+      background: #FFD814;
+      border: 1px solid #FCD200;
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #0F1111;
+      cursor: pointer;
+    }
+
+    /* ===== ADOBE — App Icon Grid ===== */
+    .adobe-card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Adobe Clean', Arial, sans-serif;
+    }
+
+    .adobe-plan-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .adobe-plan-sub {
+      font-size: 10px;
+      color: #aaa;
+      margin-bottom: 14px;
+    }
+
+    .adobe-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .adobe-app-icon {
+      aspect-ratio: 1;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .adobe-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .adobe-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .adobe-price-period {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .adobe-cta {
+      display: block;
+      text-align: center;
+      background: #1473E6;
+      color: #fff;
+      border-radius: 4px;
+      padding: 7px 0;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+
+    /* ===== APPLE — App Bundle ===== */
+    .apple-bundle {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .apple-bundle-header {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .apple-main-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 13px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .apple-bundle-info {
+      flex: 1;
+    }
+
+    .apple-bundle-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #000;
+      line-height: 1.3;
+    }
+
+    .apple-bundle-sub {
+      font-size: 10px;
+      color: #86868b;
+      margin-top: 2px;
+    }
+
+    .apple-bundle-sub-icons {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .apple-sub-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .apple-bundle-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 10px;
+    }
+
+    .apple-price-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .apple-price-original {
+      font-size: 10px;
+      color: #86868b;
+      text-decoration: line-through;
+    }
+
+    .apple-price-bundle {
+      font-size: 14px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .apple-get-btn {
+      background: #007AFF;
+      color: #fff;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: -apple-system, sans-serif;
+    }
+
+    /* ===== STEAM — Publisher Bundle ===== */
+    .steam-bundle {
+      background: #1b2838;
+      border-radius: 4px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .steam-bundle-header {
+      background: linear-gradient(135deg, #2a475e, #1b2838);
+      padding: 12px 14px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .steam-bundle-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #c6d4df;
+    }
+
+    .steam-discount-badge {
+      background: #4c6b22;
+      color: #a4d007;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .steam-bundle-items {
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .steam-bundle-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steam-item-art {
+      width: 46px;
+      height: 22px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .steam-item-name {
+      flex: 1;
+      font-size: 10px;
+      color: #c6d4df;
+    }
+
+    .steam-item-price {
+      font-size: 10px;
+      color: #acb2b8;
+      text-decoration: line-through;
+    }
+
+    .steam-bundle-footer {
+      background: #16202d;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .steam-price-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .steam-original {
+      font-size: 10px;
+      color: #acb2b8;
+      text-decoration: line-through;
+    }
+
+    .steam-final {
+      font-size: 16px;
+      font-weight: 700;
+      color: #a4d007;
+    }
+
+    .steam-buy-btn {
+      background: linear-gradient(to bottom, #82b2d6 5%, #4a7fa5 95%);
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== MICROSOFT 365 — Plan Tier Card ===== */
+    .ms365-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      border: 2px solid transparent;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+    }
+
+    .ms365-card.recommended {
+      border-color: #0078D4;
+    }
+
+    .ms365-recommended-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0078D4;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .ms365-plan-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #201F1E;
+      margin-bottom: 2px;
+    }
+
+    .ms365-plan-sub {
+      font-size: 10px;
+      color: #605E5C;
+      margin-bottom: 10px;
+    }
+
+    .ms365-app-row {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    .ms365-app-chip {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: #F3F2F1;
+      border-radius: 3px;
+      padding: 3px 6px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #201F1E;
+    }
+
+    .ms365-app-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .ms365-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #201F1E;
+      margin-bottom: 2px;
+    }
+
+    .ms365-price span {
+      font-size: 12px;
+      font-weight: 400;
+      color: #605E5C;
+    }
+
+    .ms365-features {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ms365-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 10px;
+      color: #323130;
+    }
+
+    .ms365-check {
+      color: #107C10;
+      font-size: 11px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .ms365-cta {
+      display: block;
+      text-align: center;
+      background: #0078D4;
+      color: #fff;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 14px;
+      text-decoration: none;
+    }
+
+    .ms365-card.recommended .ms365-cta {
+      background: #0078D4;
+    }
+
+    /* ===== SPOTIFY — Family/Duo Plan ===== */
+    .spotify-card {
+      background: #000;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Circular', Arial, sans-serif;
+    }
+
+    .spotify-plan-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #1DB954;
+      margin-bottom: 4px;
+    }
+
+    .spotify-plan-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .spotify-plan-sub {
+      font-size: 11px;
+      color: #b3b3b3;
+      margin-bottom: 14px;
+    }
+
+    .spotify-avatars {
+      display: flex;
+      gap: -4px;
+      margin-bottom: 12px;
+    }
+
+    .spotify-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-left: -6px;
+    }
+
+    .spotify-avatar:first-child {
+      margin-left: 0;
+    }
+
+    .spotify-features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .spotify-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .spotify-feature-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #1DB954;
+      flex-shrink: 0;
+    }
+
+    .spotify-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .spotify-price span {
+      font-size: 12px;
+      font-weight: 400;
+      color: #b3b3b3;
+    }
+
+    .spotify-cta {
+      display: block;
+      text-align: center;
+      background: #1DB954;
+      color: #000;
+      border-radius: 50px;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+
+    /* ===== HUMBLE BUNDLE — Tiered Pay What You Want ===== */
+    .humble-card {
+      background: #1a1a2e;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .humble-header {
+      background: linear-gradient(135deg, #cc3300, #ff6e00);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .humble-logo {
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .humble-time {
+      font-size: 10px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .humble-tiers {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .humble-tier {
+      border-radius: 6px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .humble-tier-1 {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .humble-tier-2 {
+      background: rgba(255,165,0,0.1);
+      border: 1px solid rgba(255,165,0,0.3);
+    }
+
+    .humble-tier-3 {
+      background: rgba(255,107,0,0.12);
+      border: 1px solid rgba(255,107,0,0.35);
+    }
+
+    .humble-tier-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #aaa;
+      margin-bottom: 5px;
+    }
+
+    .humble-tier-2 .humble-tier-label {
+      color: #ffaa00;
+    }
+
+    .humble-tier-3 .humble-tier-label {
+      color: #ff6e00;
+    }
+
+    .humble-tier-items {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .humble-item-chip {
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      padding: 3px 7px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .humble-item-chip.locked {
+      opacity: 0.4;
+    }
+
+    .humble-item-chip .lock-icon {
+      font-size: 8px;
+    }
+
+    .humble-tier-price {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    /* ===== GOOGLE ONE — Storage + Perks ===== */
+    .google-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Google Sans', Arial, sans-serif;
+    }
+
+    .google-plan-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .google-plan-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .google-plan-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #202124;
+    }
+
+    .google-storage-bar-wrap {
+      margin-bottom: 10px;
+    }
+
+    .google-storage-label {
+      font-size: 10px;
+      color: #5f6368;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .google-storage-bar {
+      height: 6px;
+      background: #e8eaed;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .google-storage-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .google-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .google-perk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #202124;
+    }
+
+    .google-perk-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .google-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-top: 1px solid #e8eaed;
+      padding-top: 10px;
+    }
+
+    .google-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #202124;
+    }
+
+    .google-price-sub {
+      font-size: 10px;
+      color: #5f6368;
+    }
+
+    .google-cta {
+      background: #1a73e8;
+      color: #fff;
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ===== BEST BUY — Save When Bundled ===== */
+    .bb-card {
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      font-family: 'Human BBY Digital', Arial, sans-serif;
+    }
+
+    .bb-header {
+      background: #0046BE;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bb-header-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FFE000;
+    }
+
+    .bb-products {
+      padding: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .bb-product {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 4px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+
+    .bb-product-img {
+      font-size: 28px;
+    }
+
+    .bb-product-name {
+      font-size: 9px;
+      color: #1d1d1f;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .bb-product-price {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    .bb-arrow {
+      display: flex;
+      align-items: center;
+      color: #0046BE;
+      font-size: 16px;
+      flex-shrink: 0;
+      padding-top: 8px;
+    }
+
+    .bb-savings-bar {
+      background: #F0F7FF;
+      margin: 0 12px 12px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #CCE2FF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bb-savings-text {
+      font-size: 11px;
+      color: #0046BE;
+      font-weight: 700;
+    }
+
+    .bb-bundle-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    /* ===== APPLE — iCloud+ Bundles ===== */
+    .icloud-card {
+      background: linear-gradient(135deg, #1c1c2e, #16213e);
+      border-radius: 14px;
+      padding: 16px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .icloud-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .icloud-icon {
+      font-size: 28px;
+    }
+
+    .icloud-title-block {
+      flex: 1;
+    }
+
+    .icloud-plan-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .icloud-plan-sub {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .icloud-storage-badge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .icloud-perks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .icloud-perk {
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .icloud-perk-icon {
+      font-size: 16px;
+    }
+
+    .icloud-perk-text {
+      font-size: 10px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.3;
+    }
+
+    .icloud-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .icloud-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .icloud-price-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .icloud-cta {
+      display: block;
+      text-align: center;
+      background: #0A84FF;
+      color: #fff;
+      border-radius: 10px;
+      padding: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 12px;
+      text-decoration: none;
+    }
+
+    /* ===== BESTBUY — Complete The Set ===== */
+    .cts-card {
+      background: #fff;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .cts-header {
+      background: #FFE000;
+      padding: 8px 12px;
+    }
+
+    .cts-header-text {
+      font-size: 11px;
+      font-weight: 800;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== SHOPIFY / ECOMM — Product Bundle ===== */
+    .shopify-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: -apple-system, sans-serif;
+      border: 1px solid #e5e7eb;
+    }
+
+    .shopify-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      margin-bottom: 10px;
+    }
+
+    .shopify-items {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .shopify-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+    }
+
+    .shopify-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .shopify-item-name {
+      font-size: 9px;
+      color: #374151;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .shopify-qty {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #6366f1;
+      color: #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .shopify-connector {
+      display: flex;
+      align-items: center;
+      color: #9ca3af;
+      font-size: 14px;
+      padding-top: 16px;
+    }
+
+    .shopify-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #f3f4f6;
+    }
+
+    .shopify-price-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shopify-original {
+      font-size: 10px;
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+
+    .shopify-bundle-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .shopify-save-tag {
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .shopify-atc {
+      background: #111827;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ===== TELECOM — Verizon-style plan compare ===== */
+    .telco-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: 'Neue Haas Grotesk', Arial, sans-serif;
+    }
+
+    .telco-plan-header {
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .telco-plan-name {
+      font-size: 14px;
+      font-weight: 900;
+      color: #1b1b1b;
+      letter-spacing: -0.3px;
+    }
+
+    .telco-plan-tagline {
+      font-size: 10px;
+      color: #666;
+      margin-top: 1px;
+    }
+
+    .telco-includes {
+      padding: 10px 14px;
+    }
+
+    .telco-section-label {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .telco-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f9f9f9;
+    }
+
+    .telco-perk-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .telco-perk-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1b1b1b;
+    }
+
+    .telco-perk-value {
+      font-size: 9px;
+      color: #666;
+    }
+
+    .telco-perk-badge {
+      margin-left: auto;
+      background: #E7F0FD;
+      color: #1565C0;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .telco-price-footer {
+      background: #f9f9f9;
+      padding: 10px 14px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .telco-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #1b1b1b;
+    }
+
+    .telco-price-sub {
+      font-size: 10px;
+      color: #666;
+    }
+
+    .telco-cta {
+      background: #CD040B;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ===== NOTES TAG ===== */
+    .takeaway-strip {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 40px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .takeaway-item {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .takeaway-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .takeaway-value {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .ca-grid { grid-template-columns: repeat(2, 1fr); }
+      .ca-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .ca-grid, .ca-grid-2, .ca-grid-4 { grid-template-columns: 1fr; }
+      .ca-content { padding: 24px 20px 60px; }
+    }
+
+    /* nav-item as anchor */
+    a.nav-item {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Nav -->
+  <nav class="side-nav">
+    <div class="nav-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect width="11" height="11" fill="#fff"/>
+        <rect x="13" width="11" height="11" fill="#fff"/>
+        <rect y="13" width="11" height="11" fill="#fff"/>
+        <rect x="13" y="13" width="11" height="11" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="nav-items">
+      <a class="nav-item" href="index.html">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M8 2a1 1 0 00-.894.553L5.382 6H3a1 1 0 000 2h.28l.97 9.704A1 1 0 005.246 18h9.508a1 1 0 00.995-.896L16.72 8H17a1 1 0 000-2h-2.382l-1.724-3.447A1 1 0 0012 2H8zm0 2h4l1 2H7L8 4zm-1.72 4h7.44l-.9 8H7.18L6.28 8z"/></svg>
+        <span>Playground</span>
+      </a>
+      <a class="nav-item active" href="competitive-analysis.html">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+        <span>Comp. Analysis</span>
+      </a>
+    </div>
+    <div class="nav-bottom">
+      <div class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zM4 16c0-2.67 5.33-4 6-4s6 1.33 6 4v1H4v-1z"/></svg>
+        <span>Profile</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="ca-content">
+      <div class="ca-page-header">
+        <div class="ca-page-title">Bundle UI — Competitive Analysis</div>
+        <div class="ca-page-subtitle">How platforms across e-commerce, software, streaming, and telecom communicate multi-item value to users. Focused on non-game patterns that are broadly applicable.</div>
+      </div>
+
+      <!-- ===== SECTION 1: PRODUCT BUNDLING (E-COMMERCE) ===== -->
+      <div class="ca-section">
+        <div class="ca-section-header">
+          <span class="ca-section-title">E-Commerce</span>
+          <span class="ca-section-desc">Product pairings and save-when-bought-together patterns</span>
+        </div>
+
+        <div class="ca-grid">
+
+          <!-- Amazon FBT -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Amazon</span>
+              <span class="ca-pattern-tag">Frequently Bought Together</span>
+            </div>
+            <div class="ca-mock">
+              <div class="amz-fbt">
+                <div class="amz-product">
+                  <div class="amz-product-img" style="background:#f7f8f8;">📷</div>
+                  <div class="amz-product-title">Sony A7 III Camera</div>
+                  <div class="amz-product-price">$1,999.99</div>
+                </div>
+                <div class="amz-plus">+</div>
+                <div class="amz-product">
+                  <div class="amz-product-img" style="background:#f7f8f8;">🔋</div>
+                  <div class="amz-product-title">Extra Battery Pack</div>
+                  <div class="amz-product-price">$49.99</div>
+                </div>
+                <div class="amz-plus">+</div>
+                <div class="amz-product">
+                  <div class="amz-product-img" style="background:#f7f8f8;">💾</div>
+                  <div class="amz-product-title">128GB SD Card</div>
+                  <div class="amz-product-price">$24.99</div>
+                </div>
+              </div>
+              <div class="amz-bundle-summary">
+                <div class="amz-bundle-total">Total: <strong>$2,039.99</strong> <span style="color:#007600;font-size:10px;font-family:Arial;">Save $34.98</span></div>
+                <button class="amz-atc-btn">Add all 3 to Cart</button>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Horizontally connected products with + signs. Combined price + contextual savings. Single CTA bundles all items. Feels transactional, not curated.</div>
+          </div>
+
+          <!-- Amazon Bundle & Save -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Amazon</span>
+              <span class="ca-pattern-tag">Bundle & Save</span>
+            </div>
+            <div class="ca-mock">
+              <div class="amz-bundle-save">
+                <div class="amz-bs-badge">Bundle & Save 15%</div>
+                <div class="amz-bs-items">
+                  <div class="amz-bs-item">
+                    <div class="amz-bs-item-img">🧴</div>
+                    <div class="amz-bs-item-name">Face Wash 6oz</div>
+                    <div class="amz-bs-item-price">$18.99</div>
+                    <div class="amz-bs-item-sale">$16.14</div>
+                  </div>
+                  <div class="amz-bs-item">
+                    <div class="amz-bs-item-img">💊</div>
+                    <div class="amz-bs-item-name">Vitamin C Serum</div>
+                    <div class="amz-bs-item-price">$24.99</div>
+                    <div class="amz-bs-item-sale">$21.24</div>
+                  </div>
+                  <div class="amz-bs-item">
+                    <div class="amz-bs-item-img">🌿</div>
+                    <div class="amz-bs-item-name">SPF Moisturizer</div>
+                    <div class="amz-bs-item-price">$22.99</div>
+                    <div class="amz-bs-item-sale">$19.54</div>
+                  </div>
+                </div>
+                <div class="amz-bs-total-row">
+                  <div class="amz-bs-savings">You save: $9.05 (15% off)</div>
+                  <button class="amz-bs-btn">Add Bundle</button>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Each item shown with original + discounted price. Aggregate savings prominently featured. Discount % badge upfront. Applies to subscribe & save too.</div>
+          </div>
+
+          <!-- Shopify -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Shopify Stores</span>
+              <span class="ca-pattern-tag">Product Bundle</span>
+            </div>
+            <div class="ca-mock">
+              <div class="shopify-card">
+                <div class="shopify-badge">🎁 Bundle & Save 20%</div>
+                <div class="shopify-items">
+                  <div class="shopify-item">
+                    <div class="shopify-item-img" style="background:#f8f9fa;">☕</div>
+                    <div class="shopify-item-name">Whole Bean Coffee 1lb</div>
+                  </div>
+                  <div class="shopify-connector">+</div>
+                  <div class="shopify-item">
+                    <div class="shopify-item-img" style="background:#f8f9fa;">🫖</div>
+                    <div class="shopify-item-name">Cold Brew Bags ×10</div>
+                    <div class="shopify-qty">×2</div>
+                  </div>
+                  <div class="shopify-connector">+</div>
+                  <div class="shopify-item">
+                    <div class="shopify-item-img" style="background:#f8f9fa;">📦</div>
+                    <div class="shopify-item-name">Branded Tote Bag</div>
+                  </div>
+                </div>
+                <div class="shopify-price-row">
+                  <div class="shopify-price-block">
+                    <div class="shopify-original">$68.00</div>
+                    <div class="shopify-bundle-price">$54.40</div>
+                  </div>
+                  <div class="shopify-save-tag">Save $13.60</div>
+                  <button class="shopify-atc">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Clean product thumbnails with quantity badges. Savings amount shown alongside discounted price. Popular in D2C brands.</div>
+          </div>
+
+          <!-- Best Buy -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Best Buy</span>
+              <span class="ca-pattern-tag">Save When Bundled</span>
+            </div>
+            <div class="ca-mock">
+              <div class="bb-card">
+                <div class="bb-header">
+                  <span style="font-size:14px;">🏷️</span>
+                  <span class="bb-header-text">Save when bundled together</span>
+                </div>
+                <div class="bb-products">
+                  <div class="bb-product">
+                    <div class="bb-product-img">💻</div>
+                    <div class="bb-product-name">MacBook Air 15"</div>
+                    <div class="bb-product-price">$1,299.99</div>
+                  </div>
+                  <div class="bb-arrow">+</div>
+                  <div class="bb-product">
+                    <div class="bb-product-img">🖱️</div>
+                    <div class="bb-product-name">Magic Mouse</div>
+                    <div class="bb-product-price">$79.99</div>
+                  </div>
+                  <div class="bb-arrow">+</div>
+                  <div class="bb-product">
+                    <div class="bb-product-img">⌨️</div>
+                    <div class="bb-product-name">Magic Keyboard</div>
+                    <div class="bb-product-price">$99.99</div>
+                  </div>
+                </div>
+                <div class="bb-savings-bar">
+                  <div class="bb-savings-text">Bundle price: <span style="color:#CC0000">Save $60</span></div>
+                  <div class="bb-bundle-price">$1,419.98</div>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Brand-colored header signal, product thumbnails with prices, combined savings bar at bottom. Retail-native, straightforward.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== SECTION 2: SOFTWARE / SAAS ===== -->
+      <div class="ca-section">
+        <div class="ca-section-header">
+          <span class="ca-section-title">Software & SaaS</span>
+          <span class="ca-section-desc">Feature & app bundles in plan cards and subscription tiers</span>
+        </div>
+
+        <div class="ca-grid">
+
+          <!-- Adobe CC -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Adobe Creative Cloud</span>
+              <span class="ca-pattern-tag">App Icon Grid</span>
+            </div>
+            <div class="ca-mock">
+              <div class="adobe-card">
+                <div class="adobe-plan-name">Creative Cloud All Apps</div>
+                <div class="adobe-plan-sub">20+ desktop and mobile apps included</div>
+                <div class="adobe-apps-grid">
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#001E36,#00C8FF);">Ps</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#2C005A,#E86CFF);">Ai</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#00005B,#9999FF);">Id</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#3A005A,#FF69FF);">Pr</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#00005B,#00F0FF);">Ae</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#004B55,#00E8CC);">Lr</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#4A001F,#FF2BC2);">Dr</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#1A0033,#7C59FF);">Au</div>
+                  <div class="adobe-app-icon" style="background:linear-gradient(135deg,#001B27,#00C8FF);font-size:7px;">XD</div>
+                  <div class="adobe-app-icon" style="background:rgba(255,255,255,0.08);font-size:10px;">+11</div>
+                </div>
+                <div class="adobe-price-row">
+                  <div class="adobe-price">$59.99</div>
+                  <div class="adobe-price-period">/ month</div>
+                </div>
+                <a class="adobe-cta" href="#">Start free trial</a>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Dense app icon grid communicates breadth at a glance. Color-coded icons are brand-consistent. "+N more" overflow. Price anchored at bottom with clear CTA.</div>
+          </div>
+
+          <!-- Microsoft 365 -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Microsoft 365</span>
+              <span class="ca-pattern-tag">Plan Comparison Card</span>
+            </div>
+            <div class="ca-mock">
+              <div class="ms365-card recommended">
+                <div class="ms365-recommended-badge">Most Popular</div>
+                <div class="ms365-plan-name">Microsoft 365 Family</div>
+                <div class="ms365-plan-sub">Up to 6 people · 1TB OneDrive each</div>
+                <div class="ms365-app-row">
+                  <div class="ms365-app-chip"><div class="ms365-app-dot" style="background:#D83B01"></div>Word</div>
+                  <div class="ms365-app-chip"><div class="ms365-app-dot" style="background:#217346"></div>Excel</div>
+                  <div class="ms365-app-chip"><div class="ms365-app-dot" style="background:#B7472A"></div>PPT</div>
+                  <div class="ms365-app-chip"><div class="ms365-app-dot" style="background:#0078D4"></div>Teams</div>
+                </div>
+                <div class="ms365-price">$9.99<span>/mo</span></div>
+                <div class="ms365-features">
+                  <div class="ms365-feature"><span class="ms365-check">✓</span>Full Office apps on 6 devices</div>
+                  <div class="ms365-feature"><span class="ms365-check">✓</span>6TB cloud storage total (1TB each)</div>
+                  <div class="ms365-feature"><span class="ms365-check">✓</span>Advanced security for all members</div>
+                  <div class="ms365-feature"><span class="ms365-check">✓</span>Microsoft Defender included</div>
+                </div>
+                <a class="ms365-cta" href="#">Buy now</a>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> "Most Popular" badge drives anchoring. Color-coded app chips. Feature checklist builds justification. Shared-plan framing adds per-person value narrative.</div>
+          </div>
+
+          <!-- Google One -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Google One</span>
+              <span class="ca-pattern-tag">Storage + Perks Bundle</span>
+            </div>
+            <div class="ca-mock">
+              <div class="google-card">
+                <div class="google-plan-header">
+                  <div class="google-plan-icon" style="background:linear-gradient(135deg,#4285F4,#34A853);">☁️</div>
+                  <div>
+                    <div class="google-plan-name">Google One Premium 2TB</div>
+                    <div style="font-size:10px;color:#5f6368;font-family:Arial;">For you and your family</div>
+                  </div>
+                </div>
+                <div class="google-storage-bar-wrap">
+                  <div class="google-storage-label">
+                    <span>Storage included</span>
+                    <span style="font-weight:700;">2 TB</span>
+                  </div>
+                  <div class="google-storage-bar">
+                    <div class="google-storage-fill" style="width:100%;background:linear-gradient(90deg,#4285F4,#34A853);"></div>
+                  </div>
+                </div>
+                <div class="google-perks">
+                  <div class="google-perk">
+                    <div class="google-perk-icon" style="background:#E8F0FE;">📱</div>
+                    <span>Share with up to 5 family members</span>
+                  </div>
+                  <div class="google-perk">
+                    <div class="google-perk-icon" style="background:#E6F4EA;">🛡️</div>
+                    <span>Google VPN included</span>
+                  </div>
+                  <div class="google-perk">
+                    <div class="google-perk-icon" style="background:#FCE8E6;">🎓</div>
+                    <span>Google One AI Premium features</span>
+                  </div>
+                </div>
+                <div class="google-price-row">
+                  <div>
+                    <div class="google-price">$9.99</div>
+                    <div class="google-price-sub">per month</div>
+                  </div>
+                  <button class="google-cta">Get started</button>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Storage bar is a tangible visual anchor. Perks listed as recognizable icons. Family sharing adds justification for higher price tier. Clean Google Material aesthetic.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== SECTION 3: STREAMING & SUBSCRIPTION ===== -->
+      <div class="ca-section">
+        <div class="ca-section-header">
+          <span class="ca-section-title">Streaming & Subscriptions</span>
+          <span class="ca-section-desc">Tiered plans, multi-user bundles, and included perks</span>
+        </div>
+
+        <div class="ca-grid">
+
+          <!-- Spotify Family -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Spotify</span>
+              <span class="ca-pattern-tag">Multi-User Plan</span>
+            </div>
+            <div class="ca-mock">
+              <div class="spotify-card">
+                <div class="spotify-plan-label">Premium</div>
+                <div class="spotify-plan-name">Family</div>
+                <div class="spotify-plan-sub">Up to 6 Premium accounts</div>
+                <div class="spotify-avatars">
+                  <div class="spotify-avatar" style="background:#1DB954;">👨</div>
+                  <div class="spotify-avatar" style="background:#2d8a4e;">👩</div>
+                  <div class="spotify-avatar" style="background:#1a6b3c;">👦</div>
+                  <div class="spotify-avatar" style="background:#146030;">👧</div>
+                  <div class="spotify-avatar" style="background:#0f4a25;">👴</div>
+                  <div class="spotify-avatar" style="background:#0a3319;">👵</div>
+                </div>
+                <div class="spotify-features">
+                  <div class="spotify-feature"><div class="spotify-feature-dot"></div>Ad-free music for everyone</div>
+                  <div class="spotify-feature"><div class="spotify-feature-dot"></div>Download on up to 6 devices</div>
+                  <div class="spotify-feature"><div class="spotify-feature-dot"></div>Separate accounts & playlists</div>
+                  <div class="spotify-feature"><div class="spotify-feature-dot"></div>Spotify Kids included</div>
+                </div>
+                <div class="spotify-price">$16.99 <span>/ month</span></div>
+                <a class="spotify-cta" href="#">Get Premium Family</a>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Avatar row makes "6 people" tangible. Brand green used for feature dots and CTA. Individual accounts framed as key benefit, not just seats.</div>
+          </div>
+
+          <!-- iCloud+ -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Apple iCloud+</span>
+              <span class="ca-pattern-tag">Service Bundle</span>
+            </div>
+            <div class="ca-mock">
+              <div class="icloud-card">
+                <div class="icloud-header">
+                  <div class="icloud-icon">☁️</div>
+                  <div class="icloud-title-block">
+                    <div class="icloud-plan-name">iCloud+</div>
+                    <div class="icloud-plan-sub">Includes privacy features</div>
+                  </div>
+                  <div class="icloud-storage-badge">2 TB</div>
+                </div>
+                <div class="icloud-perks">
+                  <div class="icloud-perk">
+                    <div class="icloud-perk-icon">🔒</div>
+                    <div class="icloud-perk-text">Private Relay</div>
+                  </div>
+                  <div class="icloud-perk">
+                    <div class="icloud-perk-icon">📧</div>
+                    <div class="icloud-perk-text">Hide My Email</div>
+                  </div>
+                  <div class="icloud-perk">
+                    <div class="icloud-perk-icon">🏠</div>
+                    <div class="icloud-perk-text">HomeKit Secure Video</div>
+                  </div>
+                  <div class="icloud-perk">
+                    <div class="icloud-perk-icon">👨‍👩‍👦</div>
+                    <div class="icloud-perk-text">Share with Family</div>
+                  </div>
+                </div>
+                <div class="icloud-price-row">
+                  <div class="icloud-price">$9.99</div>
+                  <div class="icloud-price-sub">&nbsp;/ month</div>
+                </div>
+                <a class="icloud-cta" href="#">Subscribe</a>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Storage as hero badge (top-right). Privacy services listed as concrete named features, not abstract bullets. Compact 2-col perk grid conveys density.</div>
+          </div>
+
+          <!-- Humble Bundle -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Humble Bundle</span>
+              <span class="ca-pattern-tag">Tiered Pay-What-You-Want</span>
+            </div>
+            <div class="ca-mock">
+              <div class="humble-card">
+                <div class="humble-header">
+                  <div class="humble-logo">HUMBLE BUNDLE</div>
+                  <div class="humble-time">⏱ 8 days left</div>
+                </div>
+                <div class="humble-tiers">
+                  <div class="humble-tier humble-tier-1">
+                    <div class="humble-tier-price">Pay $1+</div>
+                    <div class="humble-tier-label">Tier 1 — Get 3 items</div>
+                    <div class="humble-tier-items">
+                      <div class="humble-item-chip">🎮 Base Game A</div>
+                      <div class="humble-item-chip">🎮 Indie Game B</div>
+                      <div class="humble-item-chip">📖 Artbook PDF</div>
+                    </div>
+                  </div>
+                  <div class="humble-tier humble-tier-2">
+                    <div class="humble-tier-price">Beat avg ($8.42) +</div>
+                    <div class="humble-tier-label">Tier 2 — Unlock 3 more</div>
+                    <div class="humble-tier-items">
+                      <div class="humble-item-chip">🎮 Expansion</div>
+                      <div class="humble-item-chip">🎮 DLC Pack</div>
+                      <div class="humble-item-chip">🎵 Soundtrack</div>
+                    </div>
+                  </div>
+                  <div class="humble-tier humble-tier-3">
+                    <div class="humble-tier-price">Pay $15+</div>
+                    <div class="humble-tier-label">Tier 3 — Everything</div>
+                    <div class="humble-tier-items">
+                      <div class="humble-item-chip">🎮 AAA Game</div>
+                      <div class="humble-item-chip locked"><span class="lock-icon">🔒</span> Bonus (soon)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Progressive unlocking creates urgency + aspiration. "Beat average" tier uses social proof as the price anchor. Locked item teases future value.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== SECTION 4: TELECOM ===== -->
+      <div class="ca-section">
+        <div class="ca-section-header">
+          <span class="ca-section-title">Telecom & Carrier</span>
+          <span class="ca-section-desc">Third-party service bundles embedded in plan tiers</span>
+        </div>
+
+        <div class="ca-grid ca-grid-2">
+
+          <!-- Steam -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Steam</span>
+              <span class="ca-pattern-tag">Franchise / Publisher Bundle</span>
+            </div>
+            <div class="ca-mock">
+              <div class="steam-bundle">
+                <div class="steam-bundle-header">
+                  <div class="steam-bundle-title">Arkane Complete Collection</div>
+                  <div class="steam-discount-badge">-75%</div>
+                </div>
+                <div class="steam-bundle-items">
+                  <div class="steam-bundle-item">
+                    <div class="steam-item-art" style="background:linear-gradient(135deg,#2a1a4a,#111);">Prey</div>
+                    <div class="steam-item-name">Prey (2017)</div>
+                    <div class="steam-item-price">$39.99</div>
+                  </div>
+                  <div class="steam-bundle-item">
+                    <div class="steam-item-art" style="background:linear-gradient(135deg,#1a1a3a,#111);">DL</div>
+                    <div class="steam-item-name">Deathloop</div>
+                    <div class="steam-item-price">$59.99</div>
+                  </div>
+                  <div class="steam-bundle-item">
+                    <div class="steam-item-art" style="background:linear-gradient(135deg,#1a2a3a,#111);">Dis2</div>
+                    <div class="steam-item-name">Dishonored 2</div>
+                    <div class="steam-item-price">$29.99</div>
+                  </div>
+                  <div class="steam-bundle-item">
+                    <div class="steam-item-art" style="background:linear-gradient(135deg,#1a1a2a,#111);">Dis</div>
+                    <div class="steam-item-name">Dishonored DOTO</div>
+                    <div class="steam-item-price">$29.99</div>
+                  </div>
+                </div>
+                <div class="steam-bundle-footer">
+                  <div class="steam-price-block">
+                    <div class="steam-original">$159.96</div>
+                    <div class="steam-final">$39.99</div>
+                  </div>
+                  <button class="steam-buy-btn">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Each game listed with real art + individual crossed-out price. Big discount badge anchors value. Total savings visible via original price. Publisher branding drives confidence.</div>
+          </div>
+
+          <!-- Verizon-style Telecom -->
+          <div class="ca-card">
+            <div class="ca-card-label">
+              <span class="ca-platform-name">Verizon / Carrier</span>
+              <span class="ca-pattern-tag">Bundled Perks in Plan Tier</span>
+            </div>
+            <div class="ca-mock">
+              <div class="telco-card">
+                <div class="telco-plan-header">
+                  <div class="telco-plan-name">myPlan Unlimited+</div>
+                  <div class="telco-plan-tagline">Our best plan with premium perks included</div>
+                </div>
+                <div class="telco-includes">
+                  <div class="telco-section-label">What's included</div>
+                  <div class="telco-perk">
+                    <div class="telco-perk-logo" style="background:#000;">📺</div>
+                    <div>
+                      <div class="telco-perk-name">Disney Bundle</div>
+                      <div class="telco-perk-value">Disney+, Hulu, ESPN+</div>
+                    </div>
+                    <div class="telco-perk-badge">$18.99 value</div>
+                  </div>
+                  <div class="telco-perk">
+                    <div class="telco-perk-logo" style="background:#1DB954;">🎵</div>
+                    <div>
+                      <div class="telco-perk-name">Spotify Premium</div>
+                      <div class="telco-perk-value">Ad-free music</div>
+                    </div>
+                    <div class="telco-perk-badge">$9.99 value</div>
+                  </div>
+                  <div class="telco-perk">
+                    <div class="telco-perk-logo" style="background:#FF6B00;">☁️</div>
+                    <div>
+                      <div class="telco-perk-name">Microsoft 365</div>
+                      <div class="telco-perk-value">Word, Excel, Teams</div>
+                    </div>
+                    <div class="telco-perk-badge">$6.99 value</div>
+                  </div>
+                  <div class="telco-perk">
+                    <div class="telco-perk-logo" style="background:#0A1128;">🛡️</div>
+                    <div>
+                      <div class="telco-perk-name">ID Protection</div>
+                      <div class="telco-perk-value">Identity theft monitoring</div>
+                    </div>
+                    <div class="telco-perk-badge">$11.99 value</div>
+                  </div>
+                </div>
+                <div class="telco-price-footer">
+                  <div>
+                    <div class="telco-price">$45<span style="font-size:13px;font-weight:400;">/mo</span></div>
+                    <div class="telco-price-sub">w/ AutoPay. $47.69 value in perks/mo.</div>
+                  </div>
+                  <button class="telco-cta">Get this plan</button>
+                </div>
+              </div>
+            </div>
+            <div class="ca-annotation"><strong>Pattern:</strong> Third-party logos give instant recognition. Each perk shows its standalone price ("$X value") to frame the bundle as a deal. Total perk value shown in footer.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== TAKEAWAYS ===== -->
+      <div class="ca-section">
+        <div class="ca-section-header">
+          <span class="ca-section-title">Key Design Patterns</span>
+          <span class="ca-section-desc">What makes bundle UI work across platforms</span>
+        </div>
+        <div class="takeaway-strip">
+          <div class="takeaway-item">
+            <div class="takeaway-label">Value Communication</div>
+            <div class="takeaway-value">Show individual prices crossed out or as badges so users can calculate savings themselves. "Save $X" is more concrete than a % badge alone.</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-label">Visual Shorthand</div>
+            <div class="takeaway-value">App icon grids (Adobe), avatar rows (Spotify), and storage bars (Google) let users grasp bundle contents without reading text.</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-label">Social Anchoring</div>
+            <div class="takeaway-value">Labels like "Most Popular" and "Beat the average" use social proof as price anchors. Humble Bundle's tier system is the most overt version of this.</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-label">Progression / Unlock</div>
+            <div class="takeaway-value">Tiered unlocking (Humble, telecom perks) creates aspiration and urgency. Locked content teases additional value without friction at lower tiers.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>
