@@ -291,10 +291,14 @@ body {
   grid-auto-rows: auto;
 }
 
-.items-row[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
-.items-row[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
-.items-row[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
-.items-row[data-cols="6"] { grid-template-columns: repeat(6, 1fr); }
+.items-row[data-cols="3"]  { grid-template-columns: repeat(3,  1fr); }
+.items-row[data-cols="4"]  { grid-template-columns: repeat(4,  1fr); }
+.items-row[data-cols="5"]  { grid-template-columns: repeat(5,  1fr); }
+.items-row[data-cols="6"]  { grid-template-columns: repeat(6,  1fr); }
+/* Mixed mode doubles the column count (box×1 + hero×2) */
+.items-row[data-cols="8"]  { grid-template-columns: repeat(8,  1fr); }
+.items-row[data-cols="10"] { grid-template-columns: repeat(10, 1fr); }
+.items-row[data-cols="12"] { grid-template-columns: repeat(12, 1fr); }
 
 /* Mixed mode: hero items span 2 columns, box items span 1.
    Only applies when effectiveCols is doubled (mixed mode).
