@@ -1445,6 +1445,10 @@ body {
   transition: opacity 0.25s ease;
 }
 
+.interaction-long-hover .game-item.longhover-active .item-info {
+  padding-bottom: 40px;
+}
+
 .interaction-long-hover .game-item.longhover-active .longhover-extra {
   opacity: 1;
   pointer-events: auto;
