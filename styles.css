@@ -1,3 +1,4 @@
+
 /* ===== RESET & BASE ===== */
 *, *::before, *::after {
   margin: 0;
@@ -288,10 +289,6 @@ body {
   gap: var(--column-gap);
   position: relative;
   align-items: start;
-  grid-auto-rows: auto;
-  /* Never wrap — always one row, excess items clipped */
-  overflow: hidden;
-  grid-auto-flow: column;
 }
 
 .items-row[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }

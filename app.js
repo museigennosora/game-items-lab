@@ -160,7 +160,7 @@ function createChannel(channel, idx) {
       </div>
     </div>
     <div class="items-row" data-cols="${state.itemsPerRow}">
-      ${channel.gameIds.map((gid) => {
+      ${channel.gameIds.slice(0, state.itemsPerRow).map((gid) => {
         return createGameItem(gid, formFactor, content, channel.interactionType);
       }).join('')}
     </div>
@@ -661,8 +661,8 @@ function createBundleChannel() {
         Each card explores a different visual approach to representing bundles of games or games with DLCs
       </div>
     </div>
-    <div class="items-row" data-cols="${Math.min(state.itemsPerRow, 6)}">
-      ${BUNDLES.map(bundle => createBundleItem(bundle, bundleTypeDescriptions)).join('')}
+    <div class="items-row" data-cols="${state.itemsPerRow}">
+      ${BUNDLES.slice(0, state.itemsPerRow).map(bundle => createBundleItem(bundle, bundleTypeDescriptions)).join('')}
     </div>
   `;
   return div;
