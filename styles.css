@@ -296,9 +296,11 @@ body {
 .items-row[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
 .items-row[data-cols="6"] { grid-template-columns: repeat(6, 1fr); }
 
-/* Mixed mode: hero items span 2 columns, box items span 1 */
-.items-row .game-item.form-hero { grid-column: span 2; }
-.items-row .game-item.form-box  { grid-column: span 1; }
+/* Mixed mode: hero items span 2 columns, box items span 1.
+   Only applies when effectiveCols is doubled (mixed mode).
+   In box/hero mode all items span 1 column. */
+.items-row[data-mixed="true"] .game-item.form-hero { grid-column: span 2; }
+.items-row[data-mixed="true"] .game-item.form-box  { grid-column: span 1; }
 
 /* ===== GAME ITEM (BASE) ===== */
 .game-item {
@@ -1364,8 +1366,7 @@ body {
 .interaction-long-hover .game-item.longhover-active {
   transform: scale(1.15);
   z-index: 20;
-  box-shadow: 0 0 0 2px #fff,
-              0 20px 60px rgba(0,0,0,0.7);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
 }
 
 .longhover-overlay {

@@ -1,5 +1,5 @@
 // ===== Page config =====
-const MAIN_CHANNEL_IDS = [1, 10, 12]; // hover-scale, bumper-snap, trigger-zoom
+const MAIN_CHANNEL_IDS = [14, 1, 10, 12]; // long-hover, hover-scale, bumper-snap, trigger-zoom
 
 // ===== State =====
 const state = {
@@ -149,7 +149,8 @@ function createChannel(channel, idx) {
   const formFactor = getFormFactor(channel, idx);
   const content = { showPrice: state.showPrice, secondaryInfo: state.secondaryInfo };
 
-  // In mixed mode, use doubled column count so hero (span 2) and box (span 1) have 2:1 width ratio
+  // In mixed mode, double the column count so hero (span 2) and box (span 1) have 2:1 width ratio.
+  // In box or hero mode, use itemsPerRow directly (hero items do NOT span 2 in non-mixed mode).
   const effectiveCols = state.formFactor === 'mixed' ? state.itemsPerRow * 2 : state.itemsPerRow;
 
   div.innerHTML = `
@@ -160,7 +161,7 @@ function createChannel(channel, idx) {
         ${channel.subtitle.split('—')[1] || channel.subtitle}
       </div>
     </div>
-    <div class="items-row" data-cols="${effectiveCols}">
+    <div class="items-row" data-cols="${effectiveCols}" ${state.formFactor === 'mixed' ? 'data-mixed="true"' : ''}>
       ${channel.gameIds.map((gid, i) => {
         const ff = state.formFactor === 'mixed' ? (i % 2 === 0 ? 'box' : 'hero') : state.formFactor;
         return createGameItem(gid, ff, content, channel.interactionType);
