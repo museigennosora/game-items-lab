@@ -198,6 +198,7 @@ function createGameItem(gameId, formFactor, content, interactionType) {
   const ssBg = firstSS ? `background-image:url('${firstSS}');background-size:cover;background-position:center;` : '';
 
   let extraHtml = '';
+  let longhoverExtraHtml = '';
   let wrapStart = '';
   let wrapEnd = '';
 
@@ -248,10 +249,16 @@ function createGameItem(gameId, formFactor, content, interactionType) {
       extraHtml = `<div class="stick-overlay"><div class="stick-slideshow">${buildSlideshowHTML(game, 'stick')}</div><div class="stick-overlay-info"><span>${game.title}</span><span class="stick-overlay-tags">${game.genomeTags.slice(0,3).join(' • ')}</span></div></div>`;
       break;
 
-    // --- Long Hover = delayed expansion with overlay slideshow + info ---
-    case 'long-hover':
-      extraHtml = `<div class="longhover-overlay"><div class="longhover-slideshow">${buildSlideshowHTML(game, 'longhover')}</div><div class="longhover-info"><span class="longhover-title">${game.title}</span><span class="longhover-tags">${game.genomeTags.slice(0,3).join(' • ')}</span>${game.recommendation ? `<span class="longhover-rec">${game.recommendation}</span>` : ''}</div></div>`;
+    // --- Long Hover = delayed expansion; overlay is media-only, extra info appears in panel below ---
+    case 'long-hover': {
+      const gpTier = game.gamePassTier || null;
+      const gpClass = gpTier ? `gp-${gpTier.toLowerCase().replace(/\s+/g, '-')}` : '';
+      const gpBadge = gpTier ? `<span class="longhover-gp-badge ${gpClass}">✦ Included in ${gpTier}</span>` : '';
+      const esrbChip = game.esrb ? `<span class="longhover-esrb">${game.esrb}</span>` : '';
+      extraHtml = `<div class="longhover-overlay"><div class="longhover-slideshow">${buildSlideshowHTML(game, 'longhover')}</div></div>`;
+      longhoverExtraHtml = `<div class="longhover-extra">${gpBadge}${esrbChip}</div>`;
       break;
+    }
   }
 
   // Place overlays inside art, extras outside
@@ -270,10 +277,11 @@ function createGameItem(gameId, formFactor, content, interactionType) {
           ${isSlideUp ? extraHtml : ''}
           ${isArtOverlay ? extraHtml : ''}
         </div>
-        ${(state.showTitlePublisher || priceHtml || secondaryHtml) ? `<div class="item-info">
+        <div class="item-info">
           ${state.showTitlePublisher ? `<div class="item-title">${game.title}</div><div class="item-publisher">${game.publisher}</div>` : ''}
           ${priceHtml}${secondaryHtml}
-        </div>` : ''}
+          ${longhoverExtraHtml}
+        </div>
       </div>
       ${interactionType === 'click-expand' ? extraHtml : ''}
       ${wrapEnd}
