@@ -356,19 +356,32 @@ body {
 .item-art.hero { aspect-ratio: 16 / 9; }
 
 /* ===== Box hover: 16:9 overlay (no layout reflow) ===== */
-/* Allow overflow so the 16:9 overlay can extend beyond the 1:1 art bounds */
-.game-item:hover .game-item-inner,
-.game-item:hover .item-art.box {
+/* Only channels with art overlays get overflow:visible + 16:9 expansion.
+   Flip, drawer-slide, spotlight, etc. are deliberately excluded. */
+
+/* --- Overflow: allow overlay to break out of 1:1 bounds --- */
+.interaction-hover-scale .game-item:hover .game-item-inner,
+.interaction-hover-scale .game-item:hover .item-art.box,
+.interaction-hover-slide-up .game-item:hover .game-item-inner,
+.interaction-hover-slide-up .game-item:hover .item-art.box,
+.interaction-bumper-snap .game-item.bumper-active .game-item-inner,
+.interaction-bumper-snap .game-item.bumper-active .item-art.box,
+.interaction-trigger-zoom .game-item.trigger-active .game-item-inner,
+.interaction-trigger-zoom .game-item.trigger-active .item-art.box,
+.interaction-stick-scroll .game-item.stick-active .game-item-inner,
+.interaction-stick-scroll .game-item.stick-active .item-art.box,
+.interaction-long-hover .game-item.longhover-active .game-item-inner,
+.interaction-long-hover .game-item.longhover-active .item-art.box {
   overflow: visible;
 }
 
-/* Resize all overlay types to 16:9, same height as art, centered horizontally */
-.game-item:hover .item-art.box .item-preview-overlay,
-.game-item:hover .item-art.box .bumper-overlay,
-.game-item:hover .item-art.box .trigger-overlay,
-.game-item:hover .item-art.box .stick-overlay,
-.game-item:hover .item-art.box .longhover-overlay,
-.game-item:hover .item-art.box .slideup-slideshow {
+/* --- Overlay resize to 16:9 (same height as art, wider, centered) --- */
+.interaction-hover-scale .game-item:hover .item-art.box .item-preview-overlay,
+.interaction-hover-slide-up .game-item:hover .item-art.box .slideup-slideshow,
+.interaction-bumper-snap .game-item.bumper-active .item-art.box .bumper-overlay,
+.interaction-trigger-zoom .game-item.trigger-active .item-art.box .trigger-overlay,
+.interaction-stick-scroll .game-item.stick-active .item-art.box .stick-overlay,
+.interaction-long-hover .game-item.longhover-active .item-art.box .longhover-overlay {
   top: 0;
   bottom: 0;
   right: auto;
@@ -382,8 +395,13 @@ body {
   z-index: 20;
 }
 
-/* Info section matches the 16:9 overlay width on hover */
-.game-item:hover .game-item-inner > .item-info {
+/* --- Info section widens to match the 16:9 overlay --- */
+.interaction-hover-scale .game-item:hover .game-item-inner > .item-info,
+.interaction-hover-slide-up .game-item:hover .game-item-inner > .item-info,
+.interaction-bumper-snap .game-item.bumper-active .game-item-inner > .item-info,
+.interaction-trigger-zoom .game-item.trigger-active .game-item-inner > .item-info,
+.interaction-stick-scroll .game-item.stick-active .game-item-inner > .item-info,
+.interaction-long-hover .game-item.longhover-active .game-item-inner > .item-info {
   position: relative;
   width: calc(100% * 16 / 9);
   left: 50%;
@@ -392,24 +410,6 @@ body {
   border-radius: 0 0 8px 8px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
   z-index: 19;
-}
-
-/* Long-hover: cancel the info expansion until the overlay dwell fires (.longhover-active) */
-.interaction-long-hover .game-item:not(.longhover-active):hover .game-item-inner > .item-info {
-  width: 100%;
-  left: auto;
-  transform: none;
-  position: static;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  z-index: auto;
-}
-
-/* Long-hover: overflow also stays hidden until the overlay is active */
-.interaction-long-hover .game-item:not(.longhover-active):hover .game-item-inner,
-.interaction-long-hover .game-item:not(.longhover-active):hover .item-art.box {
-  overflow: hidden;
 }
 
 /* Placeholder art */
