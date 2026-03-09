@@ -507,5 +507,32 @@ const CHANNELS = [
     formFactorOverride: null,
     contentConfig: { showPrice: true, secondaryInfo: "recommendation" },
     gameIds: [1, 5, 3, 4, 2, 14]
+  },
+  {
+    id: 15,
+    name: "On Sale Now",
+    subtitle: "Long Hover — Item expands after hovering for ~600ms to show slideshow and details",
+    interactionType: "long-hover",
+    formFactorOverride: null,
+    contentConfig: { showPrice: true, secondaryInfo: "recommendation" },
+    gameIds: [2, 4, 13, 15, 7, 11]
+  },
+  {
+    id: 16,
+    name: "Popular with Game Pass",
+    subtitle: "Long Hover — Item expands after hovering for ~600ms to show slideshow and details",
+    interactionType: "long-hover",
+    formFactorOverride: null,
+    contentConfig: { showPrice: false, secondaryInfo: "recommendation" },
+    gameIds: [6, 7, 8, 9, 10, 12]
+  },
+  {
+    id: 17,
+    name: "New & Trending",
+    subtitle: "Long Hover — Item expands after hovering for ~600ms to show slideshow and details",
+    interactionType: "long-hover",
+    formFactorOverride: null,
+    contentConfig: { showPrice: true, secondaryInfo: "genome" },
+    gameIds: [3, 11, 14, 15, 13, 5]
   }
 ];
