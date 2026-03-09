@@ -357,7 +357,7 @@ body {
 /* Only channels with art overlays get overflow:visible + 16:9 expansion.
    Flip, drawer-slide, spotlight, etc. are deliberately excluded. */
 
-/* --- Overflow: allow overlay to break out of 1:1 bounds --- */
+/* --- Overflow: allow box overlay to break out of 1:1 bounds (hero is already 16:9, no overflow needed) --- */
 .interaction-hover-scale .game-item:hover .game-item-inner,
 .interaction-hover-scale .game-item:hover .item-art.box,
 .interaction-hover-slide-up .game-item:hover .game-item-inner,
@@ -373,7 +373,7 @@ body {
   overflow: visible;
 }
 
-/* --- Overlay resize to 16:9 (same height as art, wider, centered) --- */
+/* --- Box art only: overlay expands to 16:9 centered over the 1:1 art --- */
 .interaction-hover-scale .game-item:hover .item-art.box .item-preview-overlay,
 .interaction-hover-slide-up .game-item:hover .item-art.box .slideup-slideshow,
 .interaction-bumper-snap .game-item.bumper-active .item-art.box .bumper-overlay,
@@ -393,13 +393,13 @@ body {
   z-index: 20;
 }
 
-/* --- Info section widens to match the 16:9 overlay --- */
-.interaction-hover-scale .game-item:hover .game-item-inner > .item-info,
-.interaction-hover-slide-up .game-item:hover .game-item-inner > .item-info,
-.interaction-bumper-snap .game-item.bumper-active .game-item-inner > .item-info,
-.interaction-trigger-zoom .game-item.trigger-active .game-item-inner > .item-info,
-.interaction-stick-scroll .game-item.stick-active .game-item-inner > .item-info,
-.interaction-long-hover .game-item.longhover-active .game-item-inner > .item-info {
+/* --- Box art only: info section widens to match the 16:9 overlay --- */
+.interaction-hover-scale .game-item:hover .item-art.box ~ .item-info,
+.interaction-hover-slide-up .game-item:hover .item-art.box ~ .item-info,
+.interaction-bumper-snap .game-item.bumper-active .item-art.box ~ .item-info,
+.interaction-trigger-zoom .game-item.trigger-active .item-art.box ~ .item-info,
+.interaction-stick-scroll .game-item.stick-active .item-art.box ~ .item-info,
+.interaction-long-hover .game-item.longhover-active .item-art.box ~ .item-info {
   position: relative;
   width: calc(100% * 16 / 9);
   left: 50%;
@@ -408,6 +408,23 @@ body {
   border-radius: 0 0 8px 8px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
   z-index: 19;
+}
+
+/* --- Hero art: overlay simply fills the art (already 16:9, no expansion) --- */
+.interaction-long-hover .game-item.longhover-active .item-art.hero .longhover-overlay,
+.interaction-bumper-snap .game-item.bumper-active .item-art.hero .bumper-overlay,
+.interaction-trigger-zoom .game-item.trigger-active .item-art.hero .trigger-overlay,
+.interaction-stick-scroll .game-item.stick-active .item-art.hero .stick-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  aspect-ratio: unset;
+  overflow: hidden;
+  z-index: 20;
 }
 
 /* Placeholder art */

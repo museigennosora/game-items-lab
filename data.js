@@ -1,4 +1,4 @@
-// Mock game data with real assets where available
+ // Mock game data with real assets where available
 const GAMES = [
   {
     id: 1,
@@ -506,7 +506,7 @@ const CHANNELS = [
     interactionType: "long-hover",
     formFactorOverride: null,
     contentConfig: { showPrice: true, secondaryInfo: "recommendation" },
-    gameIds: [1, 5, 3, 4, 2, 14]
+    gameIds: [1, 5, 3, 4, 2, 14, 7, 9]
   },
   {
     id: 15,
@@ -515,7 +515,7 @@ const CHANNELS = [
     interactionType: "long-hover",
     formFactorOverride: null,
     contentConfig: { showPrice: true, secondaryInfo: "recommendation" },
-    gameIds: [2, 4, 13, 15, 7, 11]
+    gameIds: [2, 4, 13, 15, 7, 11, 3, 8]
   },
   {
     id: 16,
@@ -524,7 +524,7 @@ const CHANNELS = [
     interactionType: "long-hover",
     formFactorOverride: null,
     contentConfig: { showPrice: false, secondaryInfo: "recommendation" },
-    gameIds: [6, 7, 8, 9, 10, 12]
+    gameIds: [6, 7, 8, 9, 10, 12, 1, 4]
   },
   {
     id: 17,
@@ -533,6 +533,6 @@ const CHANNELS = [
     interactionType: "long-hover",
     formFactorOverride: null,
     contentConfig: { showPrice: true, secondaryInfo: "genome" },
-    gameIds: [3, 11, 14, 15, 13, 5]
+    gameIds: [3, 11, 14, 15, 13, 5, 2, 6]
   }
 ];
