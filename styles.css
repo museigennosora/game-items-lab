@@ -351,6 +351,33 @@ body {
 .item-art.box  { aspect-ratio: 1 / 1; }
 .item-art.hero { aspect-ratio: 16 / 9; }
 
+/* ===== Box hover: 16:9 overlay (no layout reflow) ===== */
+/* Allow overflow so the 16:9 overlay can extend beyond the 1:1 art bounds */
+.game-item:hover .game-item-inner,
+.game-item:hover .item-art.box {
+  overflow: visible;
+}
+
+/* Resize all overlay types to 16:9, same height as art, centered horizontally */
+.game-item:hover .item-art.box .item-preview-overlay,
+.game-item:hover .item-art.box .bumper-overlay,
+.game-item:hover .item-art.box .trigger-overlay,
+.game-item:hover .item-art.box .stick-overlay,
+.game-item:hover .item-art.box .longhover-overlay,
+.game-item:hover .item-art.box .slideup-slideshow {
+  top: 0;
+  bottom: 0;
+  right: auto;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 20;
+}
+
 /* Placeholder art */
 .item-art-placeholder {
   position: absolute;

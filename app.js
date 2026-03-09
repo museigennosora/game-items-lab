@@ -173,7 +173,7 @@ function createGameItem(gameId, formFactor, content, interactionType) {
   if (content.secondaryInfo === 'recommendation') {
     secondaryHtml = `<div class="item-recommendation">${game.recommendation}</div>`;
   } else if (content.secondaryInfo === 'genome') {
-    secondaryHtml = `<div class="item-genome-tags">${game.genomeTags.map(t => `<span class="genome-tag">${t}</span>`).join('<span class="genome-separator">•</span>')}</div>`;
+    secondaryHtml = `<div class="item-genome-tags">${game.genomeTags.slice(0, 4).map(t => `<span class="genome-tag">${t}</span>`).join('<span class="genome-separator">•</span>')}</div>`;
   }
 
   const firstSS = game.screenshots?.[0] || null;
@@ -857,7 +857,7 @@ function createBundleItem(bundle, descriptions) {
   if (state.secondaryInfo === 'recommendation') {
     secondaryHtml = `<div class="item-recommendation">${bundle.recommendation}</div>`;
   } else if (state.secondaryInfo === 'genome') {
-    secondaryHtml = `<div class="item-genome-tags">${bundle.genomeTags.map(t => `<span class="genome-tag">${t}</span>`).join('<span class="genome-separator">•</span>')}</div>`;
+    secondaryHtml = `<div class="item-genome-tags">${bundle.genomeTags.slice(0, 4).map(t => `<span class="genome-tag">${t}</span>`).join('<span class="genome-separator">•</span>')}</div>`;
   }
 
   return `
