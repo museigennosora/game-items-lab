@@ -1424,18 +1424,17 @@ body {
 .longhover-dot.active {
   background: rgba(255,255,255,0.9);
 }
-/* --- Long hover expanded info panel --- */
-/* Absolutely positioned inside .item-info so it takes no layout space at rest */
-.interaction-long-hover .game-item .item-info {
-  position: relative;
-}
-
+/* --- Long hover extra chip (GP badge + ESRB) ---
+   Sits just below .game-item-inner via absolute position.
+   Clipped by overflow:hidden at rest → zero layout impact.
+   Revealed by overflow:visible on longhover-active. */
 .longhover-extra {
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 8px;
-  height: 24px;
+  left: 0;
+  right: 0;
+  top: 100%;
+  padding: 6px 12px;
+  height: 36px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1443,15 +1442,22 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
-}
-
-.interaction-long-hover .game-item.longhover-active .item-info {
-  padding-bottom: 40px;
+  background: var(--bg-hover);
+  border-radius: 0 0 8px 8px;
 }
 
 .interaction-long-hover .game-item.longhover-active .longhover-extra {
   opacity: 1;
   pointer-events: auto;
+  z-index: 19;
+}
+
+/* For box art: match the widened info panel width */
+.interaction-long-hover .game-item.longhover-active .item-art.box ~ .item-info ~ .longhover-extra {
+  width: calc(100% * 16 / 9);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
 }
 
 /* Game Pass tier badge */
