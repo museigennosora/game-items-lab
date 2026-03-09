@@ -592,8 +592,8 @@ body {
 }
 
 .price-sale-badge {
-  background: var(--sale-green);
-  color: #fff;
+  background: #FFD800;
+  color: #1A1B1E;
   font-size: 10px;
   font-weight: 700;
   padding: 2px 6px;
