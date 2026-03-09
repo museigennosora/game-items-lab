@@ -149,8 +149,12 @@ function createChannel(channel, idx) {
   const formFactor = getFormFactor(channel, idx);
   const content = { showPrice: state.showPrice, secondaryInfo: state.secondaryInfo };
 
-  // In mixed mode each row alternates between all-box and all-hero (determined by channel index).
-  // All items within a single row always share the same form factor.
+  // In mixed mode: hero rows show floor(itemsPerRow/2) items each taking 2x column width.
+  // Box rows show itemsPerRow items. All items within a single row share the same form factor.
+  const isMixedHero = state.formFactor === 'mixed' && formFactor === 'hero';
+  const colCount = isMixedHero ? Math.floor(state.itemsPerRow / 2) : state.itemsPerRow;
+  const itemCount = colCount;
+
   div.innerHTML = `
     <div class="channel-header">
       <div class="channel-title">${channel.name}</div>
@@ -159,8 +163,8 @@ function createChannel(channel, idx) {
         ${channel.subtitle.split('—')[1] || channel.subtitle}
       </div>
     </div>
-    <div class="items-row" data-cols="${state.itemsPerRow}">
-      ${channel.gameIds.slice(0, state.itemsPerRow).map((gid) => {
+    <div class="items-row" data-cols="${colCount}">
+      ${channel.gameIds.slice(0, itemCount).map((gid) => {
         return createGameItem(gid, formFactor, content, channel.interactionType);
       }).join('')}
     </div>
