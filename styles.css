@@ -348,13 +348,8 @@ body {
   background-repeat: no-repeat;
 }
 
-.item-art.box  { aspect-ratio: 1 / 1; transition: aspect-ratio 0.3s cubic-bezier(0.2, 0, 0, 1); }
+.item-art.box  { aspect-ratio: 1 / 1; }
 .item-art.hero { aspect-ratio: 16 / 9; }
-
-/* Box art expands to 16:9 on hover so slideshow/video fills without cropping */
-.game-item:hover .item-art.box {
-  aspect-ratio: 16 / 9;
-}
 
 /* Placeholder art */
 .item-art-placeholder {
@@ -1312,11 +1307,6 @@ body {
               0 20px 60px rgba(0,0,0,0.7);
 }
 
-/* When box art long-hover activates, expand art to 16:9 */
-.interaction-long-hover .game-item.longhover-active .item-art.box {
-  aspect-ratio: 16 / 9;
-  transition: aspect-ratio 0.3s cubic-bezier(0.2, 0, 0, 1);
-}
 .longhover-overlay {
   position: absolute;
   inset: 0;
