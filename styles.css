@@ -291,6 +291,11 @@ body {
   align-items: start;
 }
 
+/* Mixed mode: hero items span 2 columns so they're exactly 2× the width of box items */
+.items-row.mixed-hero .game-item {
+  grid-column: span 2;
+}
+
 .items-row[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
 .items-row[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
 .items-row[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
