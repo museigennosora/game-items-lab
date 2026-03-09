@@ -13,7 +13,9 @@ const GAMES = [
     heroArt: "assets/diablo4-hero.jpg",
     heroTitledArt: "assets/diablo4-hero.jpg",
     screenshots: ["assets/diablo4-ss1.jpg", "assets/diablo4-ss2.jpg", "assets/diablo4-ss3.jpg", "assets/diablo4-ss4.jpg"],
-    color: "#8b0000"
+    color: "#8b0000",
+    gamePassTier: null,
+    esrb: "M"
   },
   {
     id: 2,
@@ -28,7 +30,9 @@ const GAMES = [
     heroArt: "assets/fallout76-hero.jpg",
     heroTitledArt: "assets/fallout76-hero.jpg",
     screenshots: ["assets/fallout76-ss1.jpg", "assets/fallout76-ss2.jpg", "assets/fallout76-ss3.jpg", "assets/fallout76-ss4.jpg"],
-    color: "#2d5a1e"
+    color: "#2d5a1e",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "M"
   },
   {
     id: 3,
@@ -43,7 +47,9 @@ const GAMES = [
     heroArt: "assets/halo-hero.jpg",
     heroTitledArt: "assets/halo-hero.jpg",
     screenshots: ["assets/halo-ss1.jpg", "assets/halo-ss2.jpg", "assets/halo-ss3.jpg", "assets/halo-ss4.jpg"],
-    color: "#2d5a3d"
+    color: "#2d5a3d",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "T"
   },
   {
     id: 4,
@@ -58,7 +64,9 @@ const GAMES = [
     heroArt: "assets/seaofthieves-hero.jpg",
     heroTitledArt: "assets/seaofthieves-hero.jpg",
     screenshots: ["assets/seaofthieves-ss1.jpg", "assets/seaofthieves-ss2.jpg", "assets/seaofthieves-ss3.jpg", "assets/seaofthieves-ss4.jpg"],
-    color: "#1a4a6a"
+    color: "#1a4a6a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "T"
   },
   {
     id: 5,
@@ -73,7 +81,9 @@ const GAMES = [
     heroArt: "assets/hifirush-hero.jpg",
     heroTitledArt: "assets/hifirush-hero.jpg",
     screenshots: ["assets/hifirush-ss1.jpg", "assets/hifirush-ss2.jpg", "assets/hifirush-ss3.jpg", "assets/hifirush-ss4.jpg"],
-    color: "#8a1a3a"
+    color: "#8a1a3a",
+    gamePassTier: "PC Game Pass",
+    esrb: "T"
   },
   {
     id: 6,
@@ -87,7 +97,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#1a3a5c"
+    color: "#1a3a5c",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "M"
   },
   {
     id: 7,
@@ -101,7 +113,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#c45e1a"
+    color: "#c45e1a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "E"
   },
   {
     id: 8,
@@ -115,7 +129,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#5a3a1a"
+    color: "#5a3a1a",
+    gamePassTier: "Game Pass Essentials",
+    esrb: "M"
   },
   {
     id: 9,
@@ -129,7 +145,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#3a1a5a"
+    color: "#3a1a5a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "M"
   },
   {
     id: 10,
@@ -143,7 +161,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#1a3a7a"
+    color: "#1a3a7a",
+    gamePassTier: "PC Game Pass",
+    esrb: "E"
   },
   {
     id: 11,
@@ -157,7 +177,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#4a6a1a"
+    color: "#4a6a1a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "T"
   },
   {
     id: 12,
@@ -171,7 +193,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#2a1a1a"
+    color: "#2a1a1a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "M"
   },
   {
     id: 13,
@@ -185,7 +209,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#6a5a1a"
+    color: "#6a5a1a",
+    gamePassTier: "PC Game Pass",
+    esrb: "T"
   },
   {
     id: 14,
@@ -199,7 +225,9 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#4a1a6a"
+    color: "#4a1a6a",
+    gamePassTier: "Game Pass Ultimate",
+    esrb: "T"
   },
   {
     id: 15,
@@ -213,28 +241,30 @@ const GAMES = [
     boxArt: null,
     heroArt: null,
     screenshots: [],
-    color: "#1a1a4a"
+    color: "#1a1a4a",
+    gamePassTier: null,
+    esrb: "M"
   }
 ];
 
-// Bundle data — each bundle uses a different visual style to represent multiple items
+// Bundle definitions
 const BUNDLES = [
   {
     id: "b1",
     title: "Diablo IV — Complete Edition",
     publisher: "Blizzard Entertainment",
     bundleType: "stacked",
-    bundleLabel: "Game + 2 DLCs",
-    originalPrice: 99.99,
-    salePrice: 49.99,
+    bundleLabel: "Game + 4 DLCs",
+    originalPrice: 89.99,
+    salePrice: 44.99,
     salePercent: 50,
     mainGame: 1,
     includedIds: [1],
-    dlcNames: ["Vessel of Hatred", "Spiritborn Pack"],
-    itemCount: 3,
+    dlcNames: ["Vessel of Hatred", "Season of Blood", "Abattoir of Zir", "Season of the Construct"],
+    itemCount: 5,
     color: "#8b0000",
-    genomeTags: ["Action RPG", "Dark Fantasy", "Multiplayer"],
-    recommendation: "Complete your collection"
+    genomeTags: ["Action RPG", "Dark Fantasy", "Open World"],
+    recommendation: "The complete Diablo experience"
   },
   {
     id: "b2",
