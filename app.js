@@ -138,6 +138,9 @@ function createChannel(channel, idx) {
   const formFactor = getFormFactor(channel, idx);
   const content = { showPrice: state.showPrice, secondaryInfo: state.secondaryInfo };
 
+  // In mixed mode, use doubled column count so hero (span 2) and box (span 1) have 2:1 width ratio
+  const effectiveCols = state.formFactor === 'mixed' ? state.itemsPerRow * 2 : state.itemsPerRow;
+
   div.innerHTML = `
     <div class="channel-header">
       <div class="channel-title">${channel.name}</div>
@@ -146,8 +149,11 @@ function createChannel(channel, idx) {
         ${channel.subtitle.split('—')[1] || channel.subtitle}
       </div>
     </div>
-    <div class="items-row" data-cols="${state.itemsPerRow}">
-      ${channel.gameIds.map(gid => createGameItem(gid, formFactor, content, channel.interactionType)).join('')}
+    <div class="items-row" data-cols="${effectiveCols}">
+      ${channel.gameIds.map((gid, i) => {
+        const ff = state.formFactor === 'mixed' ? (i % 2 === 0 ? 'box' : 'hero') : state.formFactor;
+        return createGameItem(gid, ff, content, channel.interactionType);
+      }).join('')}
     </div>
   `;
   return div;
@@ -242,7 +248,7 @@ function createGameItem(gameId, formFactor, content, interactionType) {
   const isSlideUp = false; // slide-up now handled via isArtOverlay
 
   return `
-    <div class="game-item" tabindex="0" data-game-id="${game.id}" data-interaction="${interactionType}">
+    <div class="game-item form-${formFactor}" tabindex="0" data-game-id="${game.id}" data-interaction="${interactionType}">
       ${interactionType === 'long-press' ? extraHtml : ''}
       ${wrapStart}
       <div class="game-item-inner">

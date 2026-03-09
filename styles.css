@@ -296,6 +296,10 @@ body {
 .items-row[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
 .items-row[data-cols="6"] { grid-template-columns: repeat(6, 1fr); }
 
+/* Mixed mode: hero items span 2 columns, box items span 1 */
+.items-row .game-item.form-hero { grid-column: span 2; }
+.items-row .game-item.form-box  { grid-column: span 1; }
+
 /* ===== GAME ITEM (BASE) ===== */
 .game-item {
   position: relative;
@@ -376,6 +380,18 @@ body {
   border-radius: 4px;
   overflow: hidden;
   z-index: 20;
+}
+
+/* Info section matches the 16:9 overlay width on hover */
+.game-item:hover .game-item-inner > .item-info {
+  position: relative;
+  width: calc(100% * 16 / 9);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-hover);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  z-index: 19;
 }
 
 /* Placeholder art */
