@@ -1,3 +1,6 @@
+// ===== Page config =====
+const MAIN_CHANNEL_IDS = [1, 10, 12]; // hover-scale, bumper-snap, trigger-zoom
+
 // ===== State =====
 const state = {
   formFactor: 'box',
@@ -102,12 +105,20 @@ function renderAllChannels() {
   const container = document.getElementById('channelsContainer');
   container.innerHTML = '';
 
-  CHANNELS.forEach((channel, idx) => {
+  const page = container.dataset.page || 'main';
+  const channelsToRender = page === 'tests'
+    ? CHANNELS.filter(c => !MAIN_CHANNEL_IDS.includes(c.id))
+    : CHANNELS.filter(c => MAIN_CHANNEL_IDS.includes(c.id));
+
+  channelsToRender.forEach((channel, idx) => {
     container.appendChild(createChannel(channel, idx));
   });
 
-  // Render the bundle row last
-  container.appendChild(createBundleChannel());
+  // Bundle row only on main page
+  if (page !== 'tests') {
+    container.appendChild(createBundleChannel());
+  }
+
   attachAllInteractions();
 }
 
@@ -684,8 +695,9 @@ function getBundleGameTitle(gameId) {
 }
 
 function createBundleItem(bundle, descriptions) {
+  const bundleFormFactor = state.formFactor === 'hero' ? 'hero' : 'box';
   const mainGame = GAMES.find(g => g.id === bundle.mainGame);
-  const mainArt = mainGame ? getArtSrc(mainGame) : null;
+  const mainArt = mainGame ? getArtSrc(mainGame, bundleFormFactor) : null;
   const mainColor = mainGame?.color || bundle.color;
 
   // Build art area based on bundle type
@@ -729,7 +741,7 @@ function createBundleItem(bundle, descriptions) {
       const mosaicGames = bundle.includedIds.slice(0, 5);
       let cells = '';
       mosaicGames.forEach((gid, i) => {
-        const art = getBundleGameArt(gid);
+        const art = getArtSrc(GAMES.find(g => g.id === gid), bundleFormFactor);
         const color = getBundleGameColor(gid);
         const title = getBundleGameTitle(gid);
         if (art) {
@@ -824,7 +836,7 @@ function createBundleItem(bundle, descriptions) {
       const countGames = bundle.includedIds.slice(0, 4);
       let miniStack = '';
       countGames.forEach((gid, i) => {
-        const art = getBundleGameArt(gid);
+        const art = getArtSrc(GAMES.find(g => g.id === gid), bundleFormFactor);
         const color = getBundleGameColor(gid);
         const title = getBundleGameTitle(gid);
         const offset = i * 20;
@@ -869,7 +881,7 @@ function createBundleItem(bundle, descriptions) {
   return `
     <div class="game-item bundle-item bundle-type-${bundle.bundleType}" tabindex="0" data-bundle-id="${bundle.id}">
       <div class="game-item-inner">
-        <div class="item-art box" style="--placeholder-color: ${bundle.color}">
+        <div class="item-art ${bundleFormFactor === 'hero' ? 'hero' : 'box'}" style="--placeholder-color: ${bundle.color}">
           ${artHtml}
         </div>
         ${(state.showTitlePublisher || priceHtml || secondaryHtml) ? `<div class="item-info">

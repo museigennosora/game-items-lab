@@ -394,6 +394,24 @@ body {
   z-index: 19;
 }
 
+/* Long-hover: cancel the info expansion until the overlay dwell fires (.longhover-active) */
+.interaction-long-hover .game-item:not(.longhover-active):hover .game-item-inner > .item-info {
+  width: 100%;
+  left: auto;
+  transform: none;
+  position: static;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: auto;
+}
+
+/* Long-hover: overflow also stays hidden until the overlay is active */
+.interaction-long-hover .game-item:not(.longhover-active):hover .game-item-inner,
+.interaction-long-hover .game-item:not(.longhover-active):hover .item-art.box {
+  overflow: hidden;
+}
+
 /* Placeholder art */
 .item-art-placeholder {
   position: absolute;
