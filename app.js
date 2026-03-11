@@ -280,8 +280,8 @@ function createGameItem(gameId, formFactor, content, interactionType) {
         <div class="item-info">
           ${state.showTitlePublisher ? `<div class="item-title">${game.title}</div><div class="item-publisher">${game.publisher}</div>` : ''}
           ${priceHtml}${secondaryHtml}
+          ${longhoverExtraHtml}
         </div>
-        ${longhoverExtraHtml}
       </div>
       ${interactionType === 'click-expand' ? extraHtml : ''}
       ${wrapEnd}
